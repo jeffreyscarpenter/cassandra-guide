@@ -1,4 +1,4 @@
-package com.jeff.cassandra_tdg;
+package com.cassandraguide.clients;
 
 import java.util.List;
 import java.util.ArrayList;

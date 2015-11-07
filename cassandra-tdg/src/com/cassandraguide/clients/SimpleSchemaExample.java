@@ -1,4 +1,4 @@
-package com.jeff.cassandra_tdg;
+package com.cassandraguide.clients;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Host;

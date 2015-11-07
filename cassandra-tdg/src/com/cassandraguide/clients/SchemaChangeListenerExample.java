@@ -1,5 +1,7 @@
-package com.jeff.cassandra_tdg;
+package com.cassandraguide.clients;
 
+import java.util.List;
+import java.util.ArrayList;
 import com.datastax.driver.core.AggregateMetadata;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.FunctionMetadata;
@@ -164,6 +166,6 @@ public class SchemaChangeListenerExample implements SchemaChangeListener {
 			// TODO Auto-generated method stub
 			
 		}
-	}
+
 
 }
