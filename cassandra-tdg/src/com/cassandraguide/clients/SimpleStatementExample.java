@@ -21,16 +21,28 @@ public class SimpleStatementExample {
 		// get a type 4 Random UUID to use as the Hotel ID
 		UUID uuid = UUIDs.random();
 		
+		// create parameterized INSERT statement
 		SimpleStatement hotelInsert = session.newSimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
 				uuid, "Super Hotel at WestWorld", "1-888-999-9999");
 		
-		ResultSet resultSet = session.execute(hotelInsert);
+		ResultSet hotelInsertResult = session.execute(hotelInsert);
 		
-		System.out.println(resultSet);
-		System.out.println(resultSet.wasApplied());
-		System.out.println(resultSet.getExecutionInfo());
-		System.out.println(resultSet.getExecutionInfo().getIncomingPayload());
+		System.out.println(hotelInsertResult);
+		System.out.println(hotelInsertResult.wasApplied());
+		System.out.println(hotelInsertResult.getExecutionInfo());
+		System.out.println(hotelInsertResult.getExecutionInfo().getIncomingPayload());
+		
+		// create parameterized SELECT statement
+		SimpleStatement hotelSelect = session.newSimpleStatement(
+				"SELECT * FROM hotels WHERE id=?", uuid);
+		
+		ResultSet hotelSelectResult = session.execute(hotelSelect);
+		
+		System.out.println(hotelSelectResult);
+		System.out.println(hotelSelectResult.wasApplied());
+		System.out.println(hotelSelectResult.getExecutionInfo());
+		System.out.println(hotelSelectResult.getExecutionInfo().getIncomingPayload());
 		
 		// close and exit
 		cluster.close();
