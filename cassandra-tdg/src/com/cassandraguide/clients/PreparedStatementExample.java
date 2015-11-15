@@ -1,15 +1,16 @@
 package com.cassandraguide.clients;
 
+import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.SimpleStatement;
+import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.utils.UUIDs;
 
 import java.util.UUID;
 
-public class SimpleStatementExample {
+public class PreparedStatementExample {
 	
 	public static void main(String[] args) {
 		
@@ -17,18 +18,21 @@ public class SimpleStatementExample {
 				withCredentials("jeff", "i6XJsj!k#9").
 				build();
 		
-		// create session on the "hotel" keyspace
+		// create session on the "hotel" keyspace"
 		Session session = cluster.connect("hotel");
 		
 		// get a type 4 Random UUID to use as the Hotel ID
 		UUID uuid = UUIDs.random();
 		
 		// create parameterized INSERT statement
-		SimpleStatement hotelInsert = session.newSimpleStatement(
-				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
+		PreparedStatement hotelInsertPrepared = session.prepare(
+				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)");
+		
+		BoundStatement hotelInsertBound = hotelInsertPrepared.bind(
 				uuid, "Super Hotel at WestWorld", "1-888-999-9999");
 		
-		ResultSet hotelInsertResult = session.execute(hotelInsert);
+
+		ResultSet hotelInsertResult = session.execute(hotelInsertBound);
 		
 		System.out.println(hotelInsertResult);
 		System.out.println(hotelInsertResult.wasApplied());
@@ -36,10 +40,11 @@ public class SimpleStatementExample {
 		System.out.println(hotelInsertResult.getExecutionInfo().getIncomingPayload());
 		
 		// create parameterized SELECT statement
-		SimpleStatement hotelSelect = session.newSimpleStatement(
-				"SELECT * FROM hotels WHERE id=?", uuid);
+		PreparedStatement hotelSelectPrepared = session.prepare(
+				"SELECT * FROM hotels WHERE id=?");
+		BoundStatement hotelSelectBound = hotelSelectPrepared.bind(uuid);
 		
-		ResultSet hotelSelectResult = session.execute(hotelSelect);
+		ResultSet hotelSelectResult = session.execute(hotelSelectBound);
 		
 		// result metadata
 		System.out.println(hotelSelectResult);
@@ -49,7 +54,7 @@ public class SimpleStatementExample {
 		
 		// print results
 		for (Row row : hotelSelectResult) {
-			System.out.format("id: %s, name: %s, phone: %s\n", row.getString("id"), row.getString("name"), row.getString("phone"));
+			System.out.format("id: %s, name: %s, phone: %s\n", row.getUUID("id"), row.getString("name"), row.getString("phone"));
 		}
 		
 		// close and exit
