@@ -1,5 +1,6 @@
-package com.cassandraguide.clients;
+package com.cassandraguide.readwrite;
 
+import com.datastax.driver.core.BatchStatement;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.QueryTrace;
 import com.datastax.driver.core.ResultSet;
@@ -11,7 +12,7 @@ import com.datastax.driver.core.utils.UUIDs;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
-public class SimpleStatementExample {
+public class BatchStatementExample {
 	
 	public static void main(String[] args) {
 		
@@ -29,8 +30,15 @@ public class SimpleStatementExample {
 		SimpleStatement hotelInsert = session.newSimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
 				uuid, "Super Hotel at WestWorld", "1-888-999-9999");
+		SimpleStatement hotelsByPoiInsert = session.newSimpleStatement(
+				"INSERT INTO hotels_by_poi (poi_name, id, name, phone) VALUES (?, ?, ?, ?)",
+				"WestWorld", uuid, "Super Hotel at WestWorld", "1-888-999-9999");
 		
-		ResultSet hotelInsertResult = session.execute(hotelInsert);
+		BatchStatement hotelBatch = new BatchStatement();
+		hotelBatch.add(hotelsByPoiInsert);
+		hotelBatch.add(hotelInsert);
+		
+		ResultSet hotelInsertResult = session.execute(hotelBatch);
 		
 		System.out.println(hotelInsertResult);
 		System.out.println(hotelInsertResult.wasApplied());

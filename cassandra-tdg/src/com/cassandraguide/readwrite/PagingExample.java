@@ -1,4 +1,4 @@
-package com.cassandraguide.clients;
+package com.cassandraguide.readwrite;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.QueryTrace;
@@ -11,7 +11,7 @@ import com.datastax.driver.core.utils.UUIDs;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
-public class SimpleStatementExample {
+public class PagingExample {
 	
 	public static void main(String[] args) {
 		
