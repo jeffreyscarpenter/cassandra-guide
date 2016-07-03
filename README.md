@@ -1,7 +1,7 @@
 # cassandra-guide
 Source code for Cassandra: The Definitive Guide, 2nd Ed
 
-
+![Book Cover](cassandra-tdg.jpg)
 
 Copyright 2016 Jeff Carpenter
 
