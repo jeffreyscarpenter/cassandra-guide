@@ -1,5 +1,9 @@
 # cassandra-guide
-Source code for Cassandra: The Definitive Guide, 2nd Ed
+This repository provides source code for Cassandra: The Definitive Guide, 2nd Edition
+
+These examples are not intended to represent a complete application, but are more of the bare minimum code required to access various Cassandra features via the [DataStax Java Driver](https://github.com/datastax/java-driver). As such, the examples are useful for cut and paste into your applications according to the Apache license below.
+
+Comments, improvements and feedback are welcome.
 
 ![Book Cover](cassandra-tdg.jpg)
 
