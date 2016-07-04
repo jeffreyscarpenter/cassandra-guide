@@ -1,11 +1,20 @@
 # cassandra-guide
-This repository provides source code for Cassandra: The Definitive Guide, 2nd Edition
-
-These examples are not intended to represent a complete application, but are more of the bare minimum code required to access various Cassandra features via the [DataStax Java Driver](https://github.com/datastax/java-driver). As such, the examples are useful for cut and paste into your applications according to the Apache license below.
-
-Comments, improvements and feedback are welcome.
+This repository provides source code samples that appear in the O'Reilly book [Cassandra: The Definitive Guide, 2nd Edition](http://shop.oreilly.com/product/0636920043041.do).
 
 ![Book Cover](cassandra-tdg.jpg)
+
+Examples are available for the following chapters:
+
+* Chapter 8 "Clients" - the [com.cassandraguide.clients](/cassandra-tdg/src/com/cassandraguide/clients) package contains examples of basic read, write and metadata operations available via the [DataStax Java Driver](https://github.com/datastax/java-driver)
+* Chapter 9 "Reading and writing" - the [com.cassandraguide.readwrite](/cassandra-tdg/src/com/cassandraguide/readwrite) package contains more advanced examples including batches, transactions and deletes
+* Chapter 12 "Performance Tuning" - the [com.cassandraguide.performance](/cassandra-tdg/src/com/cassandraguide/performance) package contains a query tracing example
+* Chapter 14 "Deploying and Integrating" - the [com.cassandraguide.integration](/cassandra-tdg/src/com/cassandraguide/integration) package contains an example using the [DataStax Spark Cassandra Connector](https://github.com/datastax/spark-cassandra-connector)
+
+Schema (CQL), cassandra-stress, and a sample .csv file for bulk import are available under [resources](/cassandra-tdg/resources).
+
+These examples are not intended to represent a complete application, but are more of the bare minimum code required to access various Cassandra features . As such, the examples are useful for cut and paste into your applications according to the Apache license below.
+
+Comments, improvements and feedback are welcome.
 
 Copyright 2016 Jeff Carpenter
 
