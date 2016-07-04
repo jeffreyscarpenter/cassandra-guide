@@ -1,40 +1,20 @@
 
+# Copyright (C) 2016 Jeff Carpenter
 #
-# Keyspace info
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 keyspace: hotel
-
-#
-# The CQL for creating a keyspace (optional if it already exists)
-#
-#keyspace_definition: |
-#  CREATE KEYSPACE stresscql WITH replication = {'class': #'SimpleStrategy', 'replication_factor': 1};
-
-#
-# Table info
-#
-table: rate_by_supplier_rate_plan_id_date_range
-
-
-#
-# The CQL for creating a table you wish to stress (optional if it already exists)
-#
-#table_definition: |
-#  CREATE TABLE typestest (
-#        name text,
-#        choice boolean,
-#        date timestamp,
-#        address inet,
-#        dbl double,
-#        lval bigint,
-#        ival int,
-#        uid timeuuid,
-#        value blob,
-#        PRIMARY KEY((name,choice), date, address, dbl, lval, ival, uid)
-#  ) 
-#    WITH compaction = { 'class':'LeveledCompactionStrategy' }
-#    AND compression = { 'sstable_compression' : '' }
-#    AND comment='A table of many types to test wide rows'
+table: available_rooms_by_hotel_date
 
 #
 # Optional meta information on the generated columns in the above table
@@ -55,8 +35,6 @@ table: rate_by_supplier_rate_plan_id_date_range
 # Defaults for all columns are size: uniform(4..8), population: uniform(1..100B), cluster: fixed(1)
 #
 columnspec:
-  - name: start_date_time
-    cluster: uniform('2015-11-02 00:00:00+0000'..'2015-12-31 00:00:00+0000')
   - name: date
     cluster: uniform(20..40)
 
@@ -69,13 +47,10 @@ insert:
   select: uniform(1..10)/10       # uniform chance any single generated CQL row will be visited in a partition;
                                   # generated for each partition independently, each time we visit it
 
-#
-# A list of queries you wish to run against the schema
-#
 queries:
-#   simple1:
-#      cql: select * from rate_by_supplier_rate_plan_id_date_range where supplier_id = ? and rate_plan_id = ? LIMIT 100
-#      fields: samerow             # samerow or multirow (select arguments from the same row, or randomly from all rows in the partition)
+   simple1:
+      cql: select * from available_rooms_by_hotel_date where hotel_id = ? and date = ? 
+      fields: samerow             
    range1:
-      cql: select supplier_id from rate_by_supplier_rate_plan_id_date_range where supplier_id = ? and rate_plan_id = ? and start_date_time >= ? and index_constant = 'index_constant' and end_date_time <= ? ALLOW FILTERING
-      fields: multirow            # samerow or multirow (select arguments from the same row, or randomly from all rows in the partition)
+      cql: select * from available_rooms_by_hotel_date where hotel_id = ? and date >= ? and date <= ? 
+      fields: multirow            
