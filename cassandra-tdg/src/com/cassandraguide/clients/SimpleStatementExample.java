@@ -38,13 +38,13 @@ public class SimpleStatementExample {
 		// create session on the "hotel" keyspace
 		Session session = cluster.connect("hotel");
 		
-		// get a type 4 Random UUID to use as the Hotel ID
-		UUID uuid = UUIDs.random();
+		// create a Hotel ID
+		String is = "AZ123";
 		
 		// create parameterized INSERT statement
 		SimpleStatement hotelInsert = session.newSimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
-				uuid, "Super Hotel at WestWorld", "1-888-999-9999");
+				is, "Super Hotel at WestWorld", "1-888-999-9999");
 		
 		ResultSet hotelInsertResult = session.execute(hotelInsert);
 		
@@ -55,7 +55,7 @@ public class SimpleStatementExample {
 		
 		// create parameterized SELECT statement
 		SimpleStatement hotelSelect = session.newSimpleStatement(
-				"SELECT * FROM hotels WHERE id=?", uuid);
+				"SELECT * FROM hotels WHERE id=?", is);
 		hotelSelect.enableTracing();
 		
 		
@@ -70,7 +70,8 @@ public class SimpleStatementExample {
 		
 		// print results
 		for (Row row : hotelSelectResult) {
-			System.out.format("id: %s, name: %s, phone: %s\n\n", row.getUUID("id"), row.getString("name"), row.getString("phone"));
+			System.out.format("id: %s, name: %s, phone: %s\n\n", row.getString("id"), 
+				row.getString("name"), row.getString("phone"));
 		}
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");

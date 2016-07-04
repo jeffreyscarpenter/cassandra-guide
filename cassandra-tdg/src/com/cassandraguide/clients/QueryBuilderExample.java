@@ -23,30 +23,27 @@ import com.datastax.driver.core.Session;
 import com.datastax.driver.core.querybuilder.BuiltStatement;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
-import com.datastax.driver.core.utils.UUIDs;
-
-import java.util.UUID;
 
 public class QueryBuilderExample {
 	
 	public static void main(String[] args) {
 		
 		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").
-				withCredentials("jeff", "i6XJsj!k#9").
-				build();
+			//withCredentials("jeff", "i6XJsj!k#9").
+			build();
 		
 		// create session on the "hotel" keyspace
 		Session session = cluster.connect("hotel");
 		
-		// get a type 4 Random UUID to use as the Hotel ID
-		UUID uuid = UUIDs.random();
+		// create a Hotel ID
+		String id="AZ123";
 		
 		// create a query builder
 		QueryBuilder queryBuilder = new QueryBuilder(cluster);
 		
 		// build an INSERT statement
 		BuiltStatement hotelInsertBuilt = queryBuilder.insertInto("hotels").
-				value("id", uuid).
+				value("id", id).
 				value("name", "Super Hotel at WestWorld").
 				value("phone", "1-888-999-9999");
 		
@@ -59,7 +56,7 @@ public class QueryBuilderExample {
 		
 		// build a SELECT statement
 		BuiltStatement hotelSelectBuilt = queryBuilder.select().all().
-				from("hotels").where(eq("id", uuid));
+				from("hotels").where(eq("id", id));
 		
 		ResultSet hotelSelectResult = session.execute(hotelSelectBuilt);
 		
@@ -71,12 +68,13 @@ public class QueryBuilderExample {
 		
 		// print results
 		for (Row row : hotelSelectResult) {
-			System.out.format("id: %s, name: %s, phone: %s\n", row.getUUID("id"), row.getString("name"), row.getString("phone"));
+			System.out.format("id: %s, name: %s, phone: %s\n", row.getString("id"), 
+				row.getString("name"), row.getString("phone"));
 		}
 		
 		// build a DELETE statement
 		BuiltStatement hotelDeleteBuilt = queryBuilder.delete().all().
-				from("hotels").where(eq("id", uuid));
+				from("hotels").where(eq("id", id));
 		
 		ResultSet hotelDeleteResult = session.execute(hotelDeleteBuilt);
 		

@@ -38,19 +38,19 @@ public class DeleteExample {
 		// create session on the "hotel" keyspace
 		Session session = cluster.connect("hotel");
 		
-		// get a type 4 Random UUID to use as the Hotel ID
-		UUID uuid = UUIDs.random();
+		// create a Hotel ID
+		String id="AZ123";
 		
 		// create parameterized INSERT statement
 		SimpleStatement hotelInsert = session.newSimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
-				uuid, "Super Hotel at WestWorld", "1-888-999-9999");
+				id, "Super Hotel at WestWorld", "1-888-999-9999");
 		
 		session.execute(hotelInsert);
 		
 		// create parameterized DELETE statement
 		SimpleStatement hotelDelete = session.newSimpleStatement(
-				"DELETE FROM hotels WHERE id=?", uuid);
+				"DELETE FROM hotels WHERE id=?", id);
 		
 		ResultSet hotelDeleteResult = session.execute(hotelDelete);
 		
@@ -62,7 +62,8 @@ public class DeleteExample {
 		
 		// print results
 		for (Row row : hotelDeleteResult) {
-			System.out.format("id: %s, name: %s, phone: %s\n\n", row.getUUID("id"), row.getString("name"), row.getString("phone"));
+			System.out.format("id: %s, name: %s, phone: %s\n\n", row.getString("id"), 
+				row.getString("name"), row.getString("phone"));
 		}
 		
 		// close and exit

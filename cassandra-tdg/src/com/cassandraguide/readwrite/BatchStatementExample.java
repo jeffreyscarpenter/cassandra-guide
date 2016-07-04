@@ -18,15 +18,15 @@ package com.cassandraguide.readwrite;
 
 import com.datastax.driver.core.BatchStatement;
 import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.QueryTrace;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.SimpleStatement;
 import com.datastax.driver.core.utils.UUIDs;
 
+// used for query tracing, if desired
 import java.text.SimpleDateFormat;
-import java.util.UUID;
+import com.datastax.driver.core.QueryTrace;
 
 public class BatchStatementExample {
 	
@@ -39,16 +39,16 @@ public class BatchStatementExample {
 		// create session on the "hotel" keyspace
 		Session session = cluster.connect("hotel");
 		
-		// get a type 4 Random UUID to use as the Hotel ID
-		UUID uuid = UUIDs.random();
+		// create a Hotel ID
+		String id="AZ123";
 		
 		// create parameterized INSERT statement
 		SimpleStatement hotelInsert = session.newSimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
-				uuid, "Super Hotel at WestWorld", "1-888-999-9999");
+				id, "Super Hotel at WestWorld", "1-888-999-9999");
 		SimpleStatement hotelsByPoiInsert = session.newSimpleStatement(
 				"INSERT INTO hotels_by_poi (poi_name, id, name, phone) VALUES (?, ?, ?, ?)",
-				"WestWorld", uuid, "Super Hotel at WestWorld", "1-888-999-9999");
+				"WestWorld", id, "Super Hotel at WestWorld", "1-888-999-9999");
 		
 		BatchStatement hotelBatch = new BatchStatement();
 		hotelBatch.add(hotelsByPoiInsert);
@@ -63,10 +63,11 @@ public class BatchStatementExample {
 		
 		// create parameterized SELECT statement
 		SimpleStatement hotelSelect = session.newSimpleStatement(
-				"SELECT * FROM hotels WHERE id=?", uuid);
+				"SELECT * FROM hotels WHERE id=?", id);
+		
+		// Optional - remove if not interested in tracing behavior (see Chapter 12)
 		hotelSelect.enableTracing();
-		
-		
+			
 		ResultSet hotelSelectResult = session.execute(hotelSelect);
 		
 		// result metadata
@@ -78,9 +79,11 @@ public class BatchStatementExample {
 		
 		// print results
 		for (Row row : hotelSelectResult) {
-			System.out.format("id: %s, name: %s, phone: %s\n\n", row.getUUID("id"), row.getString("name"), row.getString("phone"));
+			System.out.format("id: %s, name: %s, phone: %s\n\n", row.getString("id"), 
+				row.getString("name"), row.getString("phone"));
 		}
 		
+		// Optional - remove if not interested in tracing behavior (see Chapter 12)
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
 		QueryTrace queryTrace = hotelSelectResult.getExecutionInfo().getQueryTrace();
 		System.out.printf("Trace id: %s\n\n", queryTrace.getTraceId());
@@ -94,7 +97,6 @@ public class BatchStatementExample {
 		     dateFormat.format((event.getTimestamp())),
 		     event.getSource());
 		}
-
 		
 		// close and exit
 		cluster.close();

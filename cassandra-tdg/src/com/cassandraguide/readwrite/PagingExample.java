@@ -22,29 +22,24 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.SimpleStatement;
-import com.datastax.driver.core.utils.UUIDs;
 
 import java.text.SimpleDateFormat;
-import java.util.UUID;
 
 public class PagingExample {
 	
 	public static void main(String[] args) {
 		
 		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").
-				withCredentials("jeff", "i6XJsj!k#9").
+				//withCredentials("jeff", "i6XJsj!k#9").
 				build();
 		
 		// create session on the "hotel" keyspace
 		Session session = cluster.connect("hotel");
 		
-		// get a type 4 Random UUID to use as the Hotel ID
-		UUID uuid = UUIDs.random();
-		
 		// create parameterized INSERT statement
 		SimpleStatement hotelInsert = session.newSimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
-				uuid, "Super Hotel at WestWorld", "1-888-999-9999");
+				"AZ123", "Super Hotel at WestWorld", "1-888-999-9999");
 		
 		ResultSet hotelInsertResult = session.execute(hotelInsert);
 		
@@ -55,9 +50,7 @@ public class PagingExample {
 		
 		// create parameterized SELECT statement
 		SimpleStatement hotelSelect = session.newSimpleStatement(
-				"SELECT * FROM hotels WHERE id=?", uuid);
-		hotelSelect.enableTracing();
-		
+				"SELECT * FROM hotels WHERE id=?", "AZ123");	
 		
 		ResultSet hotelSelectResult = session.execute(hotelSelect);
 		
@@ -70,23 +63,8 @@ public class PagingExample {
 		
 		// print results
 		for (Row row : hotelSelectResult) {
-			System.out.format("id: %s, name: %s, phone: %s\n\n", row.getUUID("id"), row.getString("name"), row.getString("phone"));
+			System.out.format("id: %s, name: %s, phone: %s\n\n", row.getString("id"), row.getString("name"), row.getString("phone"));
 		}
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
-		QueryTrace queryTrace = hotelSelectResult.getExecutionInfo().getQueryTrace();
-		System.out.printf("Trace id: %s\n\n", queryTrace.getTraceId());
-		System.out.printf("%-42s | %-12s | %-10s \n", "activity",
-		   "timestamp", "source");
-		System.out.println("-------------------------------------------+--------------+------------");
-		      
-		for (QueryTrace.Event event : queryTrace.getEvents()) {
-		  System.out.printf("%42s | %12s | %10s\n",     
-		     event.getDescription(),
-		     dateFormat.format((event.getTimestamp())),
-		     event.getSource());
-		}
-
 		
 		// close and exit
 		cluster.close();
