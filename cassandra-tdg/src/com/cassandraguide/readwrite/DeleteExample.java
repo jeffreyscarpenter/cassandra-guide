@@ -17,23 +17,18 @@
 package com.cassandraguide.readwrite;
 
 import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.QueryTrace;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.SimpleStatement;
-import com.datastax.driver.core.utils.UUIDs;
-
-import java.text.SimpleDateFormat;
-import java.util.UUID;
 
 public class DeleteExample {
 	
 	public static void main(String[] args) {
 		
-		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").
-				withCredentials("jeff", "i6XJsj!k#9").
-				build();
+		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1")
+				//.withCredentials("jeff", "i6XJsj!k#9")
+				.build();
 		
 		// create session on the "hotel" keyspace
 		Session session = cluster.connect("hotel");

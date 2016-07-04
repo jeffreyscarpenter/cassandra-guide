@@ -25,9 +25,9 @@ public class SimpleConnectionExample {
 
 	public static void main(String[] args) {
 		
-		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").
-				withCredentials("jeff", "i6XJsj!k#9").
-				build();
+		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1")
+				//.withCredentials("jeff", "i6XJsj!k#9")
+				.build();
 		
 		cluster.init();
 

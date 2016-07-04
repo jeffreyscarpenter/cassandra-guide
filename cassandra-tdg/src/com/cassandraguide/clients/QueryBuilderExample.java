@@ -28,9 +28,9 @@ public class QueryBuilderExample {
 	
 	public static void main(String[] args) {
 		
-		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").
-			//withCredentials("jeff", "i6XJsj!k#9").
-			build();
+		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1")
+			//.withCredentials("jeff", "i6XJsj!k#9")
+			.build();
 		
 		// create session on the "hotel" keyspace
 		Session session = cluster.connect("hotel");

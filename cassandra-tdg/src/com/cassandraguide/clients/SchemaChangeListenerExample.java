@@ -50,10 +50,10 @@ public class SchemaChangeListenerExample implements SchemaChangeListener {
 			
 			List<Host.StateListener> list = new ArrayList<Host.StateListener>();
 			list.add(new ConnectionListenerExample());
-			Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").
-					withCredentials("jeff", "i6XJsj!k#9").
-					withInitialListeners(list).
-					build();
+			Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1")
+					//.withCredentials("jeff", "i6XJsj!k#9")
+					.withInitialListeners(list)
+					.build();
 			
 			cluster.init();
 			

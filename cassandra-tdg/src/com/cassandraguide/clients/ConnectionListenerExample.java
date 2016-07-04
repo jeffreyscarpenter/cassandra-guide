@@ -27,7 +27,6 @@ public class ConnectionListenerExample implements Host.StateListener {
 	
 	public ConnectionListenerExample() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public String getHostString(Host host) {
@@ -72,10 +71,10 @@ public class ConnectionListenerExample implements Host.StateListener {
 		
 		List<Host.StateListener> list = new ArrayList<Host.StateListener>();
 		list.add(new ConnectionListenerExample());
-		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").
-				withCredentials("jeff", "i6XJsj!k#9").
-				withInitialListeners(list).
-				build();
+		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1")
+				//.withCredentials("jeff", "i6XJsj!k#9")
+				.withInitialListeners(list)
+				.build();
 		
 		cluster.init();
 		

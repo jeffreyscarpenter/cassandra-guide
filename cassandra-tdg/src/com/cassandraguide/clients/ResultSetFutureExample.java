@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Host;
-import com.datastax.driver.core.Host.StateListener;
 
 public class ResultSetFutureExample implements Host.StateListener {
 	
@@ -72,10 +71,10 @@ public class ResultSetFutureExample implements Host.StateListener {
 		
 		List<Host.StateListener> list = new ArrayList<Host.StateListener>();
 		list.add(new ResultSetFutureExample());
-		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").
-				withCredentials("jeff", "i6XJsj!k#9").
-				withInitialListeners(list).
-				build();
+		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1")
+				//.withCredentials("jeff", "i6XJsj!k#9")
+				.withInitialListeners(list)
+				.build();
 		
 		cluster.init();
 		

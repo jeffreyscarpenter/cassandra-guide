@@ -18,7 +18,6 @@ package com.cassandraguide.clients;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.DataType;
-import com.datastax.driver.core.Host;
 import com.datastax.driver.core.Metadata;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.schemabuilder.SchemaBuilder;
@@ -29,7 +28,8 @@ public class SchemaBuilderExample {
 	public static void main(String[] args) {
 
 		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1")
-				.withCredentials("jeff", "i6XJsj!k#9").build();
+				//.withCredentials("jeff", "i6XJsj!k#9")
+				.build();
 
 		// create session on the "hotel" keyspace
 		Session session = cluster.connect("hotel");

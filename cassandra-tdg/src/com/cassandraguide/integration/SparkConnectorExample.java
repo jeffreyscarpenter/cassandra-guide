@@ -20,7 +20,6 @@ import org.apache.spark.api.java.JavaSparkContext;
 
 import com.datastax.spark.connector.japi.CassandraJavaUtil;
 import com.datastax.spark.connector.japi.rdd.CassandraTableScanJavaRDD;
-import com.datastax.spark.connector.CassandraRow;
 
 public class SparkConnectorExample {
 	
