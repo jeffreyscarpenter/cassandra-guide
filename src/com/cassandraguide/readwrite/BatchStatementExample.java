@@ -42,10 +42,10 @@ public class BatchStatementExample {
 		String id="AZ123";
 		
 		// create parameterized INSERT statement
-		SimpleStatement hotelInsert = session.newSimpleStatement(
+		SimpleStatement hotelInsert = new SimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
 				id, "Super Hotel at WestWorld", "1-888-999-9999");
-		SimpleStatement hotelsByPoiInsert = session.newSimpleStatement(
+		SimpleStatement hotelsByPoiInsert = new SimpleStatement(
 				"INSERT INTO hotels_by_poi (poi_name, id, name, phone) VALUES (?, ?, ?, ?)",
 				"WestWorld", id, "Super Hotel at WestWorld", "1-888-999-9999");
 		
@@ -61,7 +61,7 @@ public class BatchStatementExample {
 		System.out.println(hotelInsertResult.getExecutionInfo().getIncomingPayload());
 		
 		// create parameterized SELECT statement
-		SimpleStatement hotelSelect = session.newSimpleStatement(
+		SimpleStatement hotelSelect = new SimpleStatement(
 				"SELECT * FROM hotels WHERE id=?", id);
 		
 		// Optional - remove if not interested in tracing behavior (see Chapter 12)

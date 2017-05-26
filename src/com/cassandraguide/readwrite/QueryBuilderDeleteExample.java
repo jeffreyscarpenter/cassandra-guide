@@ -38,11 +38,8 @@ public class QueryBuilderDeleteExample {
 		// create a Hotel ID
 		String id="AZ123";
 		
-		// create a query builder
-		QueryBuilder queryBuilder = new QueryBuilder(cluster);
-		
 		// build an INSERT statement
-		BuiltStatement hotelInsertBuilt = queryBuilder.insertInto("hotels").
+		BuiltStatement hotelInsertBuilt = QueryBuilder.insertInto("hotels").
 				value("id", id).
 				value("name", "Super Hotel at WestWorld").
 				value("phone", "1-888-999-9999");
@@ -55,7 +52,7 @@ public class QueryBuilderDeleteExample {
 		System.out.println(hotelInsertResult.getExecutionInfo().getIncomingPayload());
 		
 		// build a SELECT statement
-		BuiltStatement hotelSelectBuilt = queryBuilder.select().all().
+		BuiltStatement hotelSelectBuilt = QueryBuilder.select().all().
 				from("hotels").where(eq("id", id));
 		
 		ResultSet hotelSelectResult = session.execute(hotelSelectBuilt);
@@ -73,7 +70,7 @@ public class QueryBuilderDeleteExample {
 		}
 		
 		// build a DELETE statement
-		BuiltStatement hotelDeleteBuilt = queryBuilder.delete().all().
+		BuiltStatement hotelDeleteBuilt = QueryBuilder.delete().all().
 				from("hotels").where(eq("id", id));
 		
 		ResultSet hotelDeleteResult = session.execute(hotelDeleteBuilt);

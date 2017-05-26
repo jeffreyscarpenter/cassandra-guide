@@ -17,7 +17,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cassandra-tdg</groupId>
   <artifactId>cassandra-tdg</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -36,7 +36,7 @@
   	<dependency>
   		<groupId>com.datastax.cassandra</groupId>
   		<artifactId>cassandra-driver-core</artifactId>
-  		<version>3.0.0-alpha4</version>
+  		<version>3.2.0</version>
   	</dependency>
   	<dependency>
   		<groupId>ch.qos.logback</groupId>

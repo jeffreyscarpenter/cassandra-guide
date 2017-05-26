@@ -40,7 +40,7 @@ public class SimpleStatementExample {
 		String is = "AZ123";
 		
 		// create parameterized INSERT statement
-		SimpleStatement hotelInsert = session.newSimpleStatement(
+		SimpleStatement hotelInsert = new SimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
 				is, "Super Hotel at WestWorld", "1-888-999-9999");
 		
@@ -52,7 +52,7 @@ public class SimpleStatementExample {
 		System.out.println(hotelInsertResult.getExecutionInfo().getIncomingPayload());
 		
 		// create parameterized SELECT statement
-		SimpleStatement hotelSelect = session.newSimpleStatement(
+		SimpleStatement hotelSelect = new SimpleStatement(
 				"SELECT * FROM hotels WHERE id=?", is);
 		hotelSelect.enableTracing();
 		

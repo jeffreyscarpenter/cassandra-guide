@@ -37,7 +37,7 @@ public class QueryTraceExample {
 		Session session = cluster.connect("hotel");
 		
 		// create parameterized SELECT statement
-		SimpleStatement hotelSelect = session.newSimpleStatement(
+		SimpleStatement hotelSelect = new SimpleStatement(
 				"SELECT * FROM hotels WHERE id=AZ123");
 		hotelSelect.enableTracing();
 		

@@ -34,7 +34,7 @@ public class PagingExample {
 		Session session = cluster.connect("hotel");
 		
 		// create parameterized INSERT statement
-		SimpleStatement hotelInsert = session.newSimpleStatement(
+		SimpleStatement hotelInsert = new SimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
 				"AZ123", "Super Hotel at WestWorld", "1-888-999-9999");
 		
@@ -46,7 +46,7 @@ public class PagingExample {
 		System.out.println(hotelInsertResult.getExecutionInfo().getIncomingPayload());
 		
 		// create parameterized SELECT statement
-		SimpleStatement hotelSelect = session.newSimpleStatement(
+		SimpleStatement hotelSelect = new SimpleStatement(
 				"SELECT * FROM hotels WHERE id=?", "AZ123");	
 		
 		ResultSet hotelSelectResult = session.execute(hotelSelect);

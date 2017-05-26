@@ -37,14 +37,14 @@ public class DeleteExample {
 		String id="AZ123";
 		
 		// create parameterized INSERT statement
-		SimpleStatement hotelInsert = session.newSimpleStatement(
+		SimpleStatement hotelInsert = new SimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?)",
 				id, "Super Hotel at WestWorld", "1-888-999-9999");
 		
 		session.execute(hotelInsert);
 		
 		// create parameterized DELETE statement
-		SimpleStatement hotelDelete = session.newSimpleStatement(
+		SimpleStatement hotelDelete = new SimpleStatement(
 				"DELETE FROM hotels WHERE id=?", id);
 		
 		ResultSet hotelDeleteResult = session.execute(hotelDelete);

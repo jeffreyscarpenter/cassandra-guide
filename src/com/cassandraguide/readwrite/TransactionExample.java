@@ -34,7 +34,7 @@ public class TransactionExample {
 		Session session = cluster.connect("hotel");
 		
 		// create parameterized INSERT statement
-		SimpleStatement hotelInsert = session.newSimpleStatement(
+		SimpleStatement hotelInsert = new SimpleStatement(
 				"INSERT INTO hotels (id, name, phone) VALUES (?, ?, ?) IF NOT EXISTS",
 				"AZ123", "Super Hotel at WestWorld", "1-888-999-9999");
 		
