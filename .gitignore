@@ -1,8 +1,25 @@
-/bin/
-<<<<<<< HEAD
-/target/
-=======
-.settings
+# borrowed from: https://gist.github.com/chhh/4961200
+
+# IntelliJ project files 
+*.iml
+*.iws
+*.ipr
+.idea/
+
+# eclipse project file
+.settings/
 .classpath
-.project/
->>>>>>> 91c4c1fc16bc429506046f359d3f3eaa4fe7c9c0
+.project
+
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+
+# OS
+.DS_Store
