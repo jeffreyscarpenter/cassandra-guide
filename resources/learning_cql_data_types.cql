@@ -12,7 +12,7 @@
 # Note use of IF NOT EXISTS syntax to avoid errors if already present
 CREATE KEYSPACE IF NOT EXISTS my_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1} ;
 USE my_keyspace;
-CREATE TABLE IF NOT EXISTS user ( first_name text, last_name text, PRIMARY KEY (first_name));
+CREATE TABLE IF NOT EXISTS user ( first_name text, last_name text, title text, PRIMARY KEY (first_name));
 
 # Write a couple of rows, but only if they don't exist already
 INSERT INTO user (first_name, last_name, title) VALUES ('Bill', 'Nguyen', 'Mr.') IF NOT EXISTS;
