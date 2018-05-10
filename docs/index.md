@@ -16,6 +16,7 @@ This is a list of changes under considerations for future revisions of the O'Rei
 
 ## Chapter 4 - The Cassandra Query Language
 - Add discussion of the tuple data type
+- Mention JSON support
 
 ## Chapter 5 - Data Modeling
 - Add a sample query to materialized views section to demonstrate it is no different
@@ -23,6 +24,7 @@ This is a list of changes under considerations for future revisions of the O'Rei
 ## Chapter 6 - The Cassandra Architecture
 - Mention TimeWindowCompactionStrategy
 - Add better options to get CCM installed?
+- Pluggable storage API?
 
 ## Chapter 7 - Configuring Cassandra
 - none
@@ -39,7 +41,7 @@ The most common is that creation of SimpleStatement is no longer done via the Se
 - none
 
 ## Chapter 11 - Maintenance
-- Mention Cassandra reaper in repair section
+- Mention Cassandra reaper in repair section, possibly DSE NodeSync as well
 - Mention "nodetool verify" as a way to check for bitrot?
 
 
@@ -50,7 +52,8 @@ The most common is that creation of SimpleStatement is no longer done via the Se
 - none
 
 ## Chapter 14 - Deploying and Integrating
-- none
+- Docker and Kubernetes deployments
+- DSE 6
 
 ## Unfiled - Chapter TBD
 - Embedded Cassandra for testing - scassandra, etc.
