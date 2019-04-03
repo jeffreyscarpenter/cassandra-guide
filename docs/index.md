@@ -45,6 +45,7 @@ This is a list of changes under considerations for future revisions of the O'Rei
 - Recommend to change from 256 vnodes to lower number
 - Recommend to put Java settings into `jvm.options` file instead of `cassandra-env.sh`
 - Recommend to put commit log into separate disk if possible
+- Remind people a lot of log messages (including flush and compaction) are now in debug.log, separate from system.log
 
 ## Chapter 8 - Clients
 - Rework the Clients chapter to provide the common overview of statements, connection
@@ -87,6 +88,7 @@ The most common is that creation of SimpleStatement is no longer done via the Se
 - Discuss TimeWindowCompactionStrategy
 - Remove DevCenter?
 - G1GC is default when using Java 8
+- off-heap memtable
 
 ## Chapter 13 - Security
 - new audit functionality? https://issues.apache.org/jira/browse/CASSANDRA-12151
